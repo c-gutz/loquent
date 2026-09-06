@@ -2,7 +2,6 @@
 
 [Language Playground](https://loquent-lang.vercel.app/)
 
-<br>
 Loquent is a tree-walking interpreter that I created in 2025 by following Robert Nystrom's great guide, "Crafting Interpreters."
 
 Implemented in Java, this project served as both my introduction to designing programming languages and Java itself.
