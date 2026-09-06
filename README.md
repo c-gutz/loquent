@@ -1,6 +1,7 @@
 # Loquent
 
-** [Language Playground](https://loquent-lang.vercel.app/)
+[Language Playground](https://loquent-lang.vercel.app/)
+
 
 Loquent is a tree-walking interpreter that I created in 2025 by following Robert Nystrom's great guide, "Crafting Interpreters."
 
