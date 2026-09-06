@@ -1,69 +1,105 @@
-import Image from "next/image";
+"use client" 
+
+import CodeEditor from "../components/code-editor";
+import Dictionary from "../components/dictionary";
+import { SAMPLE_OUTPUT, SAMPLE_PROGRAM } from "../data/sample-program";
+import { useRef, useEffect, useState } from "react";
+import type { EditorView } from "@codemirror/view";
+
+// make styling better
+// ensure that light/dark mode isnt possible
+// send to github and then vercel, done
+
+// make sure cheerpj init never runs twice
+let runtimePromise: Promise<any>| null = null;
+
+function ensureLoquent(): Promise<any> {
+  if (!runtimePromise) {
+    runtimePromise = (async () => {
+      await cheerpjInit({version:17});
+      const lib = await cheerpjRunLibrary("/app/loquent.jar");
+      const loquent = await lib.loquent.Loquent;
+      return loquent;
+    })()
+  }
+  return runtimePromise;
+}
+
 
 export default function Home() {
+  const viewRef = useRef<EditorView | null>(null);
+  const loquentRef = useRef<any>(null);
+  const [ready, setReady] = useState(false);
+  const [output, setOutput] = useState(SAMPLE_OUTPUT)
+
+  useEffect(() => {
+    let cancelled = false;
+
+    ensureLoquent().then((Loquent) => {
+      if (cancelled) return;
+      loquentRef.current = Loquent;
+      setReady(true);
+    });
+
+    return () => { cancelled = true;};  
+  }, [])
+
+  
+  async function handleRun() {
+    const source = viewRef.current?.state.doc.toString() ?? "";
+    try {
+      const result = await loquentRef.current.runSource(source);
+      setOutput(result || "(no output)");
+    } catch (e) {
+      setOutput(`Interpreter failed: ${e}`);
+    }
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="flex w-full flex-col px-5 pt-4 pb-20 sm:px-8">
+      <header className="shrink-0">
+        <p className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-aniline">
+          Purple Prose Programming
+        </p>
+        <h1 className="mt-1.5 font-mono text-[1.75rem] font-semibold leading-none tracking-tight">
+          Loquent
+        </h1>
+        <p className="mt-2 max-w-[42ch] text-sm text-muted">
+          A programming language for writers
+        </p>
+      </header>
+
+      <div className="mt-5 flex min-h-0 flex-col gap-3 lg:mt-6 lg:h-[calc(100dvh-16rem)] lg:min-h-[520px] lg:flex-row">
+        <section className="flex h-[62svh] min-h-80 min-w-0 flex-col overflow-hidden rounded-lg border border-edge bg-surface transition-colors focus-within:border-edge-strong lg:h-auto lg:min-h-0 lg:flex-[2]">
+          <div className="min-h-0 flex-1">
+            <CodeEditor initialDoc={SAMPLE_PROGRAM} onReady={(v) => { viewRef.current = v; }} />
+          </div>
+        </section>
+
+        <section className="flex h-[38svh] min-h-50 min-w-0 flex-col overflow-hidden rounded-lg border border-edge bg-surface lg:h-auto lg:min-h-0 lg:flex-[1]">
+          <div className="min-h-0 flex-1 overflow-auto">
+            <pre className="whitespace-pre-wrap px-4 py-4 font-mono text-base leading-6 text-body-strong sm:px-5 sm:text-[0.8125rem]">
+              {output}
+            </pre>
+          </div>
+        </section>
+      </div>
+
+
+      <div className="mt-3 flex justify-end">
+        <button
+          type="button"
+          onClick={handleRun}
+          disabled={!ready}
+          className="cursor-pointer rounded-md border border-edge bg-surface px-6 py-2.5 font-mono text-sm uppercase tracking-[0.12em] text-chalk transition-colors hover:border-edge-strong hover:bg-wash disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-edge disabled:hover:bg-surface"
+        >
+          {ready ? "Run" : "Loading…"}
+        </button>
+      </div>
+
+      <div className="mt-8 sm:mt-10">
+        <Dictionary />
+      </div>
+    </main>
   );
 }

@@ -1,26 +1,59 @@
 @import "tailwindcss";
 
+@theme {
+  --color-surface: #0a0a0a;
+  --color-edge: rgb(255 255 255 / 0.14);
+  --color-chalk: #ededed;
+  --color-muted: #8a8a8a;
+  --color-aniline: #b08ce8;
+  --color-rubric: #f0847c;
+  --color-edge-strong: rgb(255 255 255 / 0.25);
+  --color-wash: rgb(255 255 255 / 0.06);
+  --color-marker: rgb(255 255 255 / 0.3);
+  --color-body: rgb(237 237 237 / 0.7);
+  --color-body-strong: rgb(237 237 237 / 0.85);
+  --color-body-soft: rgb(237 237 237 / 0.8);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  color-scheme: dark;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --syn-text: #ededed;
+  --syn-keyword: #b08ce8;
+  --syn-keyword-decl: #9a86c4;
+  --syn-string: #9cd3a6;
+  --syn-literal: #e2a97e;
+  --syn-function: #8fb9ec;
+  --syn-class: #e4ce93;
+  --syn-comment: #6f6f76;
+  --syn-punctuation: #8a8a8a;
+  --syn-gutter: #6a6a6a;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #000000;
+  color: var(--color-chalk);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-muted;
+  }
+
+  .page-title {
+    @apply font-mono text-3xl font-semibold leading-tight tracking-tight sm:text-4xl;
+  }
+}
+
+::selection {
+  background-color: rgb(255 255 255 / 0.2);
+}
+
+:focus-visible {
+  outline: 2px solid rgb(255 255 255 / 0.7);
+  outline-offset: 2px;
 }
