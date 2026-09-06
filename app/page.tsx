@@ -6,9 +6,7 @@ import { SAMPLE_OUTPUT, SAMPLE_PROGRAM } from "../data/sample-program";
 import { useRef, useEffect, useState } from "react";
 import type { EditorView } from "@codemirror/view";
 
-// make styling better
-// ensure that light/dark mode isnt possible
-// send to github and then vercel, done
+// push to github and then vercel, done
 
 // make sure cheerpj init never runs twice
 let runtimePromise: Promise<any>| null = null;

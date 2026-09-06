@@ -35,7 +35,7 @@ const parser: StreamParser<LoquentState> = {
   startState: () => ({ inString: false, afterDot: false, depth: 0 }),
 
   token(stream, state) {
-    // A string left open at the end of a line continues onto the next one.
+    // a string left open at the end of a line continues onto the next one.
     if (state.inString) {
       while (!stream.eol()) {
         if (stream.next() === '"') {
@@ -142,7 +142,6 @@ export const loquentHighlight = HighlightStyle.define([
   { tag: t.comment, color: "var(--syn-comment)", fontStyle: "italic" },
   { tag: t.operator, color: "var(--syn-punctuation)" },
   { tag: t.punctuation, color: "var(--syn-punctuation)" },
-  // Left at body color on purpose; give these a hue if it reads as too quiet.
   { tag: t.self, color: "var(--syn-text)" },
   { tag: t.propertyName, color: "var(--syn-text)" },
   { tag: t.variableName, color: "var(--syn-text)" },
@@ -192,7 +191,6 @@ export const loquentEditorTheme = EditorView.theme(
       color: "inherit",
       outline: "none",
     },
-    // Keeps iOS from zooming the viewport when the editor takes focus.
     "@media (max-width: 639px)": {
       "&": { fontSize: "1rem" },
       ".cm-scroller": { padding: "0.875rem 0" },

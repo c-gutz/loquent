@@ -39,16 +39,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-@layer components {
-  .eyebrow {
-    @apply font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-muted;
-  }
-
-  .page-title {
-    @apply font-mono text-3xl font-semibold leading-tight tracking-tight sm:text-4xl;
-  }
-}
-
 ::selection {
   background-color: rgb(255 255 255 / 0.2);
 }
@@ -56,4 +46,14 @@ body {
 :focus-visible {
   outline: 2px solid rgb(255 255 255 / 0.7);
   outline-offset: 2px;
+}
+
+@media (forced-colors: active) {
+  .cm-content, pre {
+    forced-color-adjust: none;
+  }
+}
+
+html {
+  background-color: #000000;
 }

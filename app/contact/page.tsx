@@ -1,16 +1,16 @@
 export default function Contact() {
   return (
-    <main className="px-5 pt-12 pb-20 sm:px-8 sm:pt-16">
+    <main className="px-6 py-20 sm:py-28">
       <div className="w-full mx-auto max-w-xl">
         <p className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-muted">
           Contact
         </p>
 
-        <h1 className="mt-3 font-mono text-3xl font-semibold tracking-tight sm:text-4xl">
+        <h1 className="mt-4 font-mono text-3xl font-semibold tracking-tight sm:text-4xl">
           Get in touch
         </h1>
 
-        <dl className="mt-10 divide-y divide-edge border-y border-edge sm:mt-12">
+        <dl className="mt-12 divide-y divide-edge border-y border-edge">
           <div className="flex items-baseline justify-between gap-6 py-6">
             <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-muted">
               Name

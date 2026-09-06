@@ -41,8 +41,7 @@ export default function CodeEditor({ initialDoc, onReady }: Props) {
     onReadyRef.current?.(view);
 
     return () => view.destroy();
-    // Mounts once; the document is the editor's own state from here on.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // mounts once; the document is the editor's own state after this point
   }, []);
 
   return <div ref={host} className="h-full min-h-0 overflow-hidden" />;

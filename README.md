@@ -1,36 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Loquent
 
-## Getting Started
+** [Language Playground](https://loquent-lang.vercel.app/)
 
-First, run the development server:
+Loquent is a tree-walking interpreter that I created in 2025 by following Robert Nystrom's great guide, "Crafting Interpreters."
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Implemented in Java, this project served as both my introduction to designing programming languages and Java itself.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Loquent, like the language in Nystrom's book, is quite functional and well-featured, except for some edge cases. It includes functions, classes, inheritance, and all the basics.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+As a personal twist, to reflect my interest in historical fiction, I changed the syntax to resemble the verbosity often found in classic novels. I recognize that this makes the language a bit unusable, but I do think it is funny. A dictionary can be found at the bottom of the Playground page for specifics.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This site is a simple static page that uses CheerpJ to run the Java-based language directly in the browser without any reimplementation or backend. This is possible through a WebAssembly JVM. The IDE look is to the credit of CodeMirror.

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Newsreader } from "next/font/google";
@@ -26,6 +26,11 @@ export const metadata: Metadata = {
   title: "Loquent Playground",
   description: "Interactive programming playground for Loquent, a literary-themed language. Loquent is an interpreted language built using Java, and its syntax resembles historic, purple-prose literature.",
 };
+
+export const viewport : Viewport = {
+  themeColor: "#000000",
+  colorScheme: "dark",
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
