@@ -6,6 +6,11 @@ import { SAMPLE_OUTPUT, SAMPLE_PROGRAM } from "../data/sample-program";
 import { useRef, useEffect, useState } from "react";
 import type { EditorView } from "@codemirror/view";
 
+declare global {
+  function cheerpjInit(options?: Record<string, unknown>): Promise<void>;
+  function cheerpjRunLibrary(classPath: string): Promise<any>;
+}
+
 // push to github and then vercel, done
 
 // make sure cheerpj init never runs twice

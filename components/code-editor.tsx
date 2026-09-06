@@ -8,7 +8,7 @@ import { loquentEditorTheme, loquentHighlight, loquentLanguage } from "../app/lo
 
 type Props = {
   initialDoc : string,
-  onReady?: (view : EditorView) => null
+  onReady?: (view : EditorView) => void
 }
 
 export default function CodeEditor({ initialDoc, onReady }: Props) {
